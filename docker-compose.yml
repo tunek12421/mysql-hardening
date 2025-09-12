@@ -10,8 +10,8 @@ services:
       MYSQL_USER: test_user
       MYSQL_PASSWORD: temporal_user_password_123
     ports:
-      # Puerto por defecto - lo cambiaremos en hardening
-      - "3306:3306"
+      # Puerto cambiado para evitar conflicto con MySQL local
+      - "3307:3306"
     volumes:
       # Persistencia de datos
       - ./data:/var/lib/mysql
