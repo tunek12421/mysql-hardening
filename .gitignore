@@ -1,0 +1,47 @@
+# MySQL Data Directory - Contains database files and should not be versioned
+data/
+
+# MySQL Log Files
+logs/
+*.log
+
+# MySQL temporary files
+*.tmp
+*.pid
+
+# Docker specific
+.env
+.env.local
+.env.production
+.env.staging
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# MySQL specific temporary files
+mysql-bin.*
+*.relay-log
+*.relay-log.*
+
+# Temporary test files or scripts
+temp/
+tmp/
+*.test

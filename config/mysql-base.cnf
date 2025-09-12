@@ -1,0 +1,17 @@
+[mysqld]
+# Configuración básica de MySQL
+# Este archivo será mejorado paso a paso con hardening
+
+# Configuración de red básica
+port = 3306
+bind-address = 127.0.0.1
+
+# Configuración de logs básica
+log-error = /var/log/mysql/error.log
+general_log = 1
+general_log_file = /var/log/mysql/general.log
+
+# Configuración de almacenamiento básica
+datadir = /var/lib/mysql
+
+# Esta configuración será mejorada en las migraciones de hardening
