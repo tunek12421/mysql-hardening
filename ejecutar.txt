@@ -1,0 +1,3 @@
+
+docker exec -i mysql-hardening mysql -u root -ptemporal_root_password_123 --table TiendaDB < migrations/ACTIVIDAD5_01_verificar_registros.sql
+
