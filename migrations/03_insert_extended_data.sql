@@ -1,6 +1,7 @@
--- Migración 04: Datos extendidos - 10 registros por tabla
+-- Migración 03: Datos extendidos - 10 registros por tabla
+USE TiendaDB;
 
--- Las categorías ya fueron insertadas anteriormente, omitiendo duplicados
+START TRANSACTION;
 
 -- 7 Proveedores nuevos (los primeros 3 ya existen)
 INSERT INTO proveedor (nombre, telefono, direccion, correo_electronico) VALUES 
@@ -34,45 +35,45 @@ INSERT INTO cliente (codigo_cliente, nombre, correo_electronico, telefono, direc
 
 -- 12 Productos nuevos (los primeros 8 ya existen)
 INSERT INTO producto (codigo_producto, nombre, precio, stock, id_categoria) VALUES 
-('LIBRO-001', 'Cien Años de Soledad', 19.99, 35, 15),
-('LIBRO-002', 'Manual de Programación Python', 45.99, 20, 15),
-('JUGUET-001', 'Set de Legos Creativos', 79.99, 18, 16),
-('JUGUET-002', 'Muñeca Barbie Princesa', 24.99, 22, 16),
-('BELLEZA-001', 'Crema Facial Hidratante', 32.99, 45, 17),
-('BELLEZA-002', 'Perfume Eau de Toilette', 89.99, 28, 17),
-('AUTO-001', 'Aceite Motor Sintético', 25.99, 60, 18),
-('AUTO-002', 'Filtro de Aire Universal', 15.99, 40, 18),
-('JARDIN-001', 'Manguera de Jardín 20m', 34.99, 15, 19),
-('JARDIN-002', 'Set Herramientas Jardín', 69.99, 12, 19),
-('MASCOTAS-001', 'Comida Premium para Perros', 42.99, 35, 20),
-('MASCOTAS-002', 'Collar LED para Mascotas', 18.99, 25, 20);
+('LIB-001', 'Cien Años de Soledad', 19.99, 35, 1),
+('LIB-002', 'Manual de Programación Python', 45.99, 20, 1),
+('JUG-001', 'Set de Legos Creativos', 79.99, 18, 2),
+('JUG-002', 'Muñeca Barbie Princesa', 24.99, 22, 2),
+('BEL-001', 'Crema Facial Hidratante', 32.99, 45, 3),
+('BEL-002', 'Perfume Eau de Toilette', 89.99, 28, 3),
+('AUT-001', 'Aceite Motor Sintético', 25.99, 60, 4),
+('AUT-002', 'Filtro de Aire Universal', 15.99, 40, 4),
+('JAR-001', 'Manguera de Jardín 20m', 34.99, 15, 3),
+('JAR-002', 'Set Herramientas Jardín', 69.99, 12, 3),
+('MAS-001', 'Comida Premium para Perros', 42.99, 35, 4),
+('MAS-002', 'Collar LED para Mascotas', 18.99, 25, 4);
 
 -- 7 Ventas nuevas (las primeras 3 ya existen)
 INSERT INTO venta (fecha_hora, total, codigo_cliente, id_empleado) VALUES 
-('2024-08-18 11:20:00', 0.00, 'CLI-004', 4),
-('2024-08-19 13:45:00', 0.00, 'CLI-005', 5),
+('2024-08-18 11:20:00', 0.00, 'CLI-004', 1),
+('2024-08-19 13:45:00', 0.00, 'CLI-005', 2),
 ('2024-08-20 15:10:00', 0.00, 'CLI-006', 2),
 ('2024-08-21 09:30:00', 0.00, 'CLI-007', 3),
 ('2024-08-22 12:15:00', 0.00, 'CLI-008', 1),
-('2024-08-23 14:50:00', 0.00, 'CLI-009', 4),
-('2024-08-24 16:25:00', 0.00, 'CLI-010', 5);
+('2024-08-23 14:50:00', 0.00, 'CLI-009', 1),
+('2024-08-24 16:25:00', 0.00, 'CLI-010', 2);
 
 -- Detalles de venta para las nuevas ventas (id_venta 4-10)
 INSERT INTO detalle_venta (id_venta, codigo_producto, cantidad, precio_unitario) VALUES 
-(4, 'LIBRO-001', 2, 19.99),
-(4, 'LIBRO-002', 1, 45.99),
+(4, 'LIB-001', 2, 19.99),
+(4, 'LIB-002', 1, 45.99),
 (5, 'DEPORT-001', 1, 39.99),
 (5, 'DEPORT-002', 1, 159.99),
-(6, 'JUGUET-001', 1, 79.99),
-(6, 'JUGUET-002', 2, 24.99),
-(7, 'AUTO-001', 2, 25.99),
-(7, 'AUTO-002', 1, 15.99),
-(8, 'JARDIN-001', 1, 34.99),
-(8, 'JARDIN-002', 1, 69.99),
-(9, 'MASCOTAS-001', 1, 42.99),
-(9, 'BELLEZA-002', 1, 89.99),
+(6, 'JUG-001', 1, 79.99),
+(6, 'JUG-002', 2, 24.99),
+(7, 'AUT-001', 2, 25.99),
+(7, 'AUT-002', 1, 15.99),
+(8, 'JAR-001', 1, 34.99),
+(8, 'JAR-002', 1, 69.99),
+(9, 'MAS-001', 1, 42.99),
+(9, 'BEL-002', 1, 89.99),
 (10, 'ELEC-002', 1, 1199.99),
-(10, 'MASCOTAS-002', 2, 18.99);
+(10, 'MAS-002', 2, 18.99);
 
 -- 7 Pagos nuevos para las ventas nuevas (id_venta 4-10)
 INSERT INTO pago (metodo_pago, monto, fecha_pago, id_venta) VALUES 
@@ -101,15 +102,17 @@ INSERT INTO detalle_pedido (id_pedido, codigo_producto, cantidad, precio_unitari
 (3, 'HOGAR-002', 15, 40.00),
 (4, 'DEPORT-001', 25, 35.00),
 (4, 'DEPORT-002', 10, 140.00),
-(5, 'LIBRO-001', 50, 15.00),
-(5, 'LIBRO-002', 25, 35.00),
-(6, 'JUGUET-001', 12, 65.00),
-(6, 'JUGUET-002', 20, 20.00),
-(7, 'BELLEZA-001', 30, 28.00),
-(7, 'BELLEZA-002', 15, 75.00),
-(9, 'JARDIN-001', 20, 28.00),
-(9, 'JARDIN-002', 15, 60.00),
-(10, 'MASCOTAS-001', 25, 38.00),
-(10, 'MASCOTAS-002', 30, 15.00);
+(5, 'LIB-001', 50, 15.00),
+(5, 'LIB-002', 25, 35.00),
+(6, 'JUG-001', 12, 65.00),
+(6, 'JUG-002', 20, 20.00),
+(7, 'BEL-001', 30, 28.00),
+(7, 'BEL-002', 15, 75.00),
+(9, 'JAR-001', 20, 28.00),
+(9, 'JAR-002', 15, 60.00),
+(10, 'MAS-001', 25, 38.00),
+(10, 'MAS-002', 30, 15.00);
+
+COMMIT;
 
 SELECT 'Datos extendidos insertados exitosamente - 10 registros por tabla' as status;

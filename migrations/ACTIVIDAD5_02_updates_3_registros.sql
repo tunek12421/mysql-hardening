@@ -1,6 +1,8 @@
 -- ACTIVIDAD5_02: Actualizar 3 registros por tabla
 USE TiendaDB;
 
+START TRANSACTION;
+
 SELECT '=== ACTUALIZANDO REGISTROS ===' as accion;
 
 -- 1. Actualizar 3 categorías - cambiar descripción
@@ -10,7 +12,7 @@ WHERE id_categoria IN (1, 2, 3);
 
 -- 2. Actualizar 3 proveedores - modificar teléfono
 SELECT 'Actualizando 3 proveedores...' as mensaje;
-UPDATE proveedor SET telefono = CONCAT('UPD-', telefono)
+UPDATE proveedor SET telefono = CONCAT('UPD-', SUBSTRING(telefono, 1, 10))
 WHERE id_proveedor IN (1, 2, 3);
 
 -- 3. Actualizar 3 empleados - aumentar salario en 10%
@@ -20,7 +22,7 @@ WHERE id_empleado IN (1, 2, 3);
 
 -- 4. Actualizar 3 clientes - cambiar teléfono
 SELECT 'Actualizando 3 clientes...' as mensaje;
-UPDATE cliente SET telefono = CONCAT('NEW-', telefono)
+UPDATE cliente SET telefono = CONCAT('NEW-', SUBSTRING(telefono, 1, 10))
 WHERE codigo_cliente IN ('CLI-001', 'CLI-002', 'CLI-003');
 
 -- 5. Actualizar 3 productos - aumentar precio en 5%
@@ -41,12 +43,12 @@ LIMIT 3;
 
 -- 8. Actualizar 3 pagos - cambiar método de pago
 SELECT 'Actualizando 3 pagos...' as mensaje;
-UPDATE pago SET metodo_pago = 'tarjeta_credito'
+UPDATE pago SET metodo_pago = 'tarjeta'
 WHERE id_venta IN (1, 2, 3);
 
 -- 9. Actualizar 3 pedidos - cambiar estado
 SELECT 'Actualizando 3 pedidos...' as mensaje;
-UPDATE pedido SET estado = 'procesando'
+UPDATE pedido SET estado = 'completado'
 WHERE id_pedido IN (1, 2, 3);
 
 -- 10. Actualizar 3 detalles de pedido - modificar precio unitario
@@ -54,6 +56,8 @@ SELECT 'Actualizando 3 detalles de pedido...' as mensaje;
 UPDATE detalle_pedido SET precio_unitario = precio_unitario * 1.08
 WHERE id_pedido IN (1, 2, 3)
 LIMIT 3;
+
+COMMIT;
 
 SELECT '=== ACTUALIZACIONES COMPLETADAS ===' as resultado;
 SELECT 'Se actualizaron 3 registros en cada tabla' as mensaje;

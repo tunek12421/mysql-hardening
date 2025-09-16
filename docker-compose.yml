@@ -20,7 +20,7 @@ services:
       # Configuraciones personalizadas
       - ./config:/etc/mysql/conf.d
       # Scripts de inicialización
-      - ./migrations:/docker-entrypoint-initdb.d
+  #    - ./migrations:/docker-entrypoint-initdb.d
     networks:
       - mysql-network
 

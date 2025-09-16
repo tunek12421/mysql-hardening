@@ -1,4 +1,7 @@
--- Migración 03: Datos iniciales simplificados
+-- Migración 02: Datos iniciales simplificados
+USE TiendaDB;
+
+START TRANSACTION;
 
 INSERT INTO categoria (nombre, descripcion) VALUES 
 ('Electrónicos', 'Dispositivos electrónicos'),
@@ -56,5 +59,7 @@ INSERT INTO detalle_pedido (id_pedido, codigo_producto, cantidad, precio_unitari
 (1, 'ELEC-001', 10, 650.00),
 (1, 'ELEC-002', 5, 1100.00),
 (2, 'ROPA-001', 30, 25.00);
+
+COMMIT;
 
 SELECT 'Datos iniciales insertados exitosamente' as status;

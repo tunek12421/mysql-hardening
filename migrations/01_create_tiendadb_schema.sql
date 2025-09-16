@@ -1,4 +1,6 @@
 -- Migración 02: Creación del esquema TiendaDB
+CREATE DATABASE IF NOT EXISTS TiendaDB;
+USE TiendaDB;
 CREATE TABLE IF NOT EXISTS categoria (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
